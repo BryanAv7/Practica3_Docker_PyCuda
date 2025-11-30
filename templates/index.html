@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GPU Filters - PyCUDA</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div id="loader" class="loader hidden">
+        Procesando imagen, por favor espere...
+    </div>
+
+
+    <div class="container">
+
+        <h1>GPU Filters - PyCUDA</h1>
+
+        <div class="card">
+            <form id="form-gpu" enctype="multipart/form-data">
+
+                <label>Seleccione imagen:</label>
+                <input type="file" name="imagen" id="input-img" required>
+
+                <label>Filtro:</label>
+                <select name="filtro" id="select-filtro">
+                    <option value="sobel">Sobel</option>
+                    <option value="emboss">Emboss</option>
+                    <option value="gauss">Gauss</option>
+                    <option value="sharpen">Sharpen</option>
+                </select>
+
+                <label>Tamaño kernel:</label>
+                <select name="ksize" id="select-ksize">
+                    <option value="9">9</option>
+                    <option value="21">21</option>
+                    <option value="49">49</option>
+                </select>
+
+                <button type="submit">Procesar por GPU</button>
+            </form>
+        </div>
+
+        <h2>Resultado</h2>
+
+        <div class="images-row">
+            <div>
+                <p>Original</p>
+                <img id="original" class="preview">
+            </div>
+            <div>
+                <p>Procesada</p>
+                <img id="resultado" class="preview">
+            </div>
+        </div>
+
+        <!-- NUEVA SECCIÓN: PARÁMETROS UTILIZADOS -->
+        <div class="card params-card">
+            <h2>Parámetros utilizados</h2>
+            <div id="parametros-resultado" class="param-box"></div>
+        </div>
+
+    </div>
+    <button id="btnReset" class="floating-reset">↺</button>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
