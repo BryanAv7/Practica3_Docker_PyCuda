@@ -62,3 +62,39 @@ document.getElementById("btnReset").addEventListener("click", () => {
     location.reload();
 });
 
+// INFO PANEL TOGGLE
+// === PANEL LATERAL ===
+const panel = document.getElementById("infoPanel");
+const tab = document.getElementById("infoTab");
+const closeBtn = document.getElementById("closeInfo");
+
+// APARECER PESTAÑA después de carga
+window.addEventListener("load", () => {
+    tab.style.display = "block";  // ⬅️ Mostrar solo cuando la página está lista
+});
+
+// ABRIR panel
+tab.addEventListener("click", () => {
+    panel.classList.add("open");
+    tab.style.display = "none";    // ⬅️ Ocultar pestaña mientras el panel está abierto
+});
+
+// CERRAR panel desde botón interno
+closeBtn.addEventListener("click", () => {
+    panel.classList.remove("open");
+    tab.style.display = "block";   // ⬅️ Volver a mostrar la pestaña
+});
+
+// CERRAR si se clickea afuera
+document.addEventListener("click", (e) => {
+    const clickInsidePanel = panel.contains(e.target);
+    const clickTab = tab.contains(e.target);
+
+    if (!clickInsidePanel && !clickTab) {
+        if (panel.classList.contains("open")) {
+            panel.classList.remove("open");
+            tab.style.display = "block"; // ⬅️ Mostrar pestaña otra vez
+        }
+    }
+});
+
