@@ -39,6 +39,7 @@ label {
 }
 
 input, select {
+    color: black;
     width: 100%;
     padding: 10px;
     border-radius: 6px;
@@ -203,7 +204,11 @@ button:hover {
 
 .block-grid {
     display: flex;
-    gap: 12px;
+    border-radius: 12px;
+    background-color:#005a9c ;
+    justify-content: center;   /* Centra horizontalmente el grupo completo */
+    align-items: center;        /* Alinea verticalmente */
+    gap: 20px;
     margin-bottom: 10px;
 }
 
@@ -229,8 +234,6 @@ button:hover {
     display: none;
 }
 
-
-
 .presets {
     display: flex;
     gap: 10px;
@@ -238,7 +241,7 @@ button:hover {
 }
 
 .preset-btn {
-    padding: 6px 12px;
+    padding: 6px 6px;
     border: none;
     background: #003772;
     color: white;

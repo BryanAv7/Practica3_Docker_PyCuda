@@ -1,6 +1,5 @@
-// ================================
+
 // PARÁMETROS VISIBLE POR FILTRO
-// ================================
 const PARAMS_BY_FILTER = {
     "emboss": ["offset", "factor"],
     "sobel": ["factor"],
@@ -9,9 +8,7 @@ const PARAMS_BY_FILTER = {
 };
 
 
-// ================================
 // VALIDACIÓN DE BLOQUES (CUDA)
-// ================================
 const bx = document.getElementById("block_x");
 const by = document.getElementById("block_y");
 const bz = document.getElementById("block_z");
@@ -59,9 +56,7 @@ function validarBloques() {
 validarBloques(); // Validación inicial
 
 
-// ================================
 // PRESETS GPU
-// ================================
 const presets = {
     low:  { x: 8,  y: 8,  z: 1 },
     med:  { x: 16, y: 16, z: 1 },
@@ -80,9 +75,7 @@ document.getElementById("presetMed").addEventListener("click", () => aplicarPres
 document.getElementById("presetHigh").addEventListener("click", () => aplicarPreset(presets.high));
 
 
-// ================================
 // FORMULARIO PRINCIPAL
-// ================================
 document.getElementById("form-gpu").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -140,17 +133,13 @@ document.getElementById("form-gpu").addEventListener("submit", async (e) => {
 });
 
 
-// ================================
 // RESET
-// ================================
 document.getElementById("btnReset").addEventListener("click", () => {
     location.reload();
 });
 
 
-// ================================
 // PANEL LATERAL
-// ================================
 const panel = document.getElementById("infoPanel");
 const tab = document.getElementById("infoTab");
 const closeBtn = document.getElementById("closeInfo");
