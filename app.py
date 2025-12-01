@@ -39,11 +39,18 @@ def process_image():
         sigma = 90.0
         sharp_factor = 20.0
 
-        temp_input = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
+        # Validar extensión de la imagen
+        ext = os.path.splitext(image.filename)[1].lower()
+        if ext not in [".png", ".jpg", ".jpeg"]:
+            return jsonify({"error": "Formato de imagen no soportado. Solo PNG, JPG o JPEG."}), 400
+
+        # Guardar la imagen temporal
+        temp_input = tempfile.NamedTemporaryFile(delete=False, suffix=ext)
         image.save(temp_input.name)
 
-        temp_output = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
-        temp_output.close()
+        # Crear archivo temporal de salida
+        temp_output = tempfile.NamedTemporaryFile(delete=False, suffix=ext)
+        temp_output.close() 
 
         elapsed, (W, H) = run_gpu_filter_rgb(
             input_path=temp_input.name,

@@ -86,6 +86,16 @@ Al abrir la aplicación se observa una interfaz dividida en tres secciones clave
 
 # Cómo usar la aplicación
 
+## Paso 0: Guia de Retroalimencicon de cada Filtro
+Antes de comenzar, proporcionamos al usuario, en la parte izquierda de la interfaz, un panel informativo que contiene:
+
+- Descripción de cada filtro: qué hace y en qué situaciones se utiliza.
+- Explicación de cada parámetro: cómo afectan al resultado y cómo ajustarlos correctamente.
+- Concepto de kernel: qué es un kernel y cómo influye en el procesamiento de la imagen.
+
+El objetivo es que, antes de interactuar con nuestra aplicación web, el usuario tenga un entendimiento básico de los filtros y parámetros, mejorando así la experiencia y evitando confusiones.
+
+
 ## Paso 1: Sube una imagen
 Haz clic en "Seleccione imagen" y elige un archivo desde tu computadora.
 Formatos soportados: JPEG, PNG, BMP.
@@ -115,8 +125,20 @@ El tamaño del kernel define la ventana de cálculo del filtro (siempre impar y 
 | **49×49** | Máxima calidad o efectos intensos. |
 
 
+## Paso 4: Configuración de Bloques (GPU)
+En esta sección se puede ajustar la manera en que los hilos de la GPU se organizan para procesar la imagen. Esto influye directamente en el rendimiento y la eficiencia del filtro.
 
-## Paso 4: Procesa con GPU
+**Parámetros:**
+- Block X: Número de hilos en la dirección horizontal (eje X) del bloque.
+- Block Y: Número de hilos en la dirección vertical (eje Y) del bloque.
+- Block Z: Número de hilos en la dirección de profundidad (eje Z) del bloque.
+
+**Recomendaciones:**
+- El producto total Block X * Block Y * Block Z no puede superar 1024 hilos por bloque, que es el límite de la mayoría de las GPUs modernas.
+- Ajustar los bloques correctamente puede mejorar la velocidad del procesamiento, pero valores demasiado altos o desbalanceados pueden causar errores o bajo rendimiento.
+
+
+## Paso 5: Procesar la imagen
 1. Haz clic en "Procesar por GPU".
 2. Aparecerá un mensaje: "Procesando imagen, por favor espere..." mientras se ejecuta en la GPU.
 3. La imagen resultante se mostrará al lado de la original.
@@ -124,16 +146,19 @@ El tamaño del kernel define la ventana de cálculo del filtro (siempre impar y 
 
 
 
-## Paso 5: Visualización de los parámetros utilizados
+## Paso 6: Visualización de los parámetros utilizados
 Al finalizar el procesamiento, la aplicación muestra una tarjeta con los parámetros exactos aplicados, incluyendo:
 
-- Nombre del filtro
-- Tamaño del kernel
-- Resolución de la imagen
-- Tiempo de procesamiento en la GPU (en milisegundos)
-- Parámetros adicionales.
+- Nombre del filtro.
+- Tamaño del kernel.
+- Resolución de la imagen(px).
+- Tamaño de la imagen.
+- Tiempo de procesamiento en la GPU(en segundos).
+- Block Size (X,Y,Z).
+- Hilos por bloque utilizado.
+- Parámetros adicionales de cada filtro.
 
-## Paso 6: Reiniciar
+## Paso 7: Reiniciar
 ¿Quieres probar otra combinación?
 
 1. Haz clic en el botón circular ↺ (esquina inferior derecha).
