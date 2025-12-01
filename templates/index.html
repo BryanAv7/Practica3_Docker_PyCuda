@@ -37,6 +37,35 @@
                     <option value="49">49</option>
                 </select>
 
+                <label>Configuración de Bloques (GPU):</label>
+
+                <div class="block-grid">
+                    <div>
+                        <label>Block X</label>
+                        <input type="number" id="block_x" name="block_x" value="16" min="1">
+                    </div>
+                    <div>
+                        <label>Block Y</label>
+                        <input type="number" id="block_y" name="block_y" value="16" min="1">
+                    </div>
+                    <div>
+                        <label>Block Z</label>
+                        <input type="number" id="block_z" name="block_z" value="1" min="1">
+                    </div>
+                </div>
+
+                <p id="blockWarning" class="warning hidden">
+                    ⚠ El número total de hilos por bloque no puede superar 1024.
+                </p>
+
+                <div class="presets">
+                    <button type="button" id="presetLow" class="preset-btn">Bajo</button>
+                    <button type="button" id="presetMed" class="preset-btn">Medio</button>
+                    <button type="button" id="presetHigh" class="preset-btn">Alto</button>
+                </div>
+
+
+
                 <button type="submit">Procesar por GPU</button>
             </form>
         </div>

@@ -200,3 +200,65 @@ button:hover {
     cursor: pointer;
     margin-bottom: 15px;
 }
+
+.block-grid {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.block-grid div {
+    display: flex;
+    flex-direction: column;
+}
+
+.block-grid input {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+}
+
+.warning {
+    color: #a80000;
+    font-size: 14px;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+.presets {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.preset-btn {
+    padding: 6px 12px;
+    border: none;
+    background: #003772;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.preset-btn:hover {
+    background: #FCC000;
+    color: black;
+}
+
+.input-error {
+    border: 2px solid red !important;
+    background: rgba(255, 0, 0, 0.12);
+}
+
+.btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+

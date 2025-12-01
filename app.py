@@ -14,31 +14,37 @@ def process_image():
     temp_output = None
 
     try:
-        # Validación: verificar si se envió archivo
         if "imagen" not in request.files:
             return jsonify({"error": "Debe enviar una imagen"}), 400
 
         image = request.files["imagen"]
 
-        # Parámetros enviados por el front
         filter_name = request.form.get("filtro", "sobel")
         ksize = int(request.form.get("ksize", 9))
 
-        # Parámetros no enviados pero requeridos por GPU
+        # ---- Nuevos parámetros de bloques enviados por el front ----
+        block_x = int(request.form.get("block_x", 16))
+        block_y = int(request.form.get("block_y", 16))
+        block_z = int(request.form.get("block_z", 1))
+
+        if block_x * block_y * block_z > 1024:
+            return jsonify({
+              "error": f"El total de hilos por bloque ({block_x * block_y * block_z}) "
+                 f"excede el máximo permitido de 1024."
+            }), 400
+            
+        # Parámetros internos
         factor = 2.0
         offset = 128.0
         sigma = 90.0
         sharp_factor = 20.0
 
-        # Archivo temporal de entrada
         temp_input = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
         image.save(temp_input.name)
 
-        # Archivo temporal de salida
         temp_output = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
         temp_output.close()
 
-        # Procesar en GPU
         elapsed, (W, H) = run_gpu_filter_rgb(
             input_path=temp_input.name,
             output_path=temp_output.name,
@@ -47,17 +53,15 @@ def process_image():
             factor=factor,
             offset=offset,
             sigma=sigma,
-            sharp_factor=sharp_factor
+            sharp_factor=sharp_factor,
+            block=(block_x, block_y, block_z)
         )
 
-        # Convertir imagen procesada a BASE64 para enviar al front
         with open(temp_output.name, "rb") as f:
             img_base64 = base64.b64encode(f.read()).decode("utf-8")
 
-        # Tamaño en MB
         peso_mb = os.path.getsize(temp_output.name) / (1024 * 1024)
 
-        # Respuesta JSON en el mismo formato que espera tu front
         return jsonify({
             "imagenProcesada": img_base64,
             "filtro": filter_name,
@@ -70,7 +74,10 @@ def process_image():
                 "factor": factor,
                 "offset": offset,
                 "sigma": sigma,
-                "sharp_factor": sharp_factor
+                "sharp_factor": sharp_factor,
+                "block_x": block_x,
+                "block_y": block_y,
+                "block_z": block_z
             }
         })
 
@@ -78,13 +85,13 @@ def process_image():
         return jsonify({"error": str(e)}), 500
 
     finally:
-        # Limpieza de temporales
         if temp_input and os.path.exists(temp_input.name):
             try: os.unlink(temp_input.name)
             except: pass
         if temp_output and os.path.exists(temp_output.name):
             try: os.unlink(temp_output.name)
             except: pass
+
 
 @app.route("/")
 def index():
