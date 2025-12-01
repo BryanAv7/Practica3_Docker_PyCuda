@@ -58,8 +58,8 @@ validarBloques(); // Validación inicial
 
 // PRESETS GPU
 const presets = {
-    low:  { x: 8,  y: 8,  z: 1 },
-    med:  { x: 16, y: 16, z: 1 },
+    low: { x: 8, y: 8, z: 1 },
+    med: { x: 16, y: 16, z: 1 },
     high: { x: 32, y: 32, z: 1 }  // Máximo permitido: 32×32 = 1024 hilos
 };
 
@@ -120,6 +120,8 @@ document.getElementById("form-gpu").addEventListener("submit", async (e) => {
             <p><strong>Tiempo de ejecución:</strong> ${data.tiempo.toFixed(4)} s</p>
             <p><strong>Tamaño imagen:</strong> ${data.pesoMB} MB</p>
             <p><strong>Resolución:</strong> ${data.ancho} × ${data.alto} px</p>
+            <p><strong>Block Size (X,Y,Z):</strong> (${data.parametros.block_x}, ${data.parametros.block_y}, ${data.parametros.block_z})</p>
+            <p><strong>Hilos por bloque:</strong> ${data.parametros.block_x * data.parametros.block_y * data.parametros.block_z}</p>
             <h3>Parámetros adicionales:</h3>
             <pre>${JSON.stringify(parametrosFiltrados, null, 4)}</pre>
         `;
